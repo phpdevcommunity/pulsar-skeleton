@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Pulsar\Core\Controller\Controller;
 
-/**
- * Class ApiController
- * @package App\Controller
- */
-class MainController
+final class MainController extends Controller
 {
-    public function __invoke(ServerRequestInterface $request, string $table, ?int $id = null): ResponseInterface
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         return new Response(200, [], 'Hello World !');
     }

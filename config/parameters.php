@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'base.url' => '/go/public/index.php',
+    'base.url' => '/pulsar-skeleton/public/index.php',
 ];

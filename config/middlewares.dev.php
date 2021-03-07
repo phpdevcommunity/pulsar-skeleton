@@ -1,5 +1,6 @@
 <?php
 
+use DevCoder\RouterMiddleware;
 use Middlewares\BasePath;
 use Middlewares\Whoops;
 use Pulsar\Core\Middleware\ControllerMiddleware;
