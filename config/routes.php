@@ -3,5 +3,5 @@
 use DevCoder\Route;
 
 return [
-    new Route('home', '/', [\App\Controller\MainController::class])
+    new Route('main', '/', [\App\Controller\MainController::class])
 ];
