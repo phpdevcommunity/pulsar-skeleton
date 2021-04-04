@@ -10,6 +10,12 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Pulsar\Core\BaseKernel;
 
+/**
+ * @package	Pulsar
+ * @author	Devcoder.xyz <dev@devcoder.xyz>
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://www.devcoder.xyz
+ */
 final class Kernel extends BaseKernel
 {
     protected function getProjectDir(): string
@@ -17,7 +23,9 @@ final class Kernel extends BaseKernel
         return \dirname(__DIR__);
     }
 
-    protected function loadContainer(array $parameters, array $services): ContainerInterface
+    protected function loadContainer(
+        array $parameters,
+        array $services): ContainerInterface
     {
         return new Container(
             array_merge($parameters, $services),
