@@ -1,0 +1,24 @@
+version: "2"
+
+services:
+  php-fpm-pulsar:
+    build: './.docker/php'
+    container_name: php-fpm-pulsar
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "${DOCKER_PORT_PHP}:9000"
+
+  nginx-pulsar:
+    image: nginx:1-alpine
+    container_name: nginx-pulsar
+    links:
+      - php-fpm-pulsar
+    depends_on:
+      - php-fpm-pulsar
+    ports:
+      - "${DOCKER_PORT_NGINX}:80"
+    volumes:
+      - ./:/app
+      - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf

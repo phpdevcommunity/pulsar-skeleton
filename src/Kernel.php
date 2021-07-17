@@ -34,11 +34,11 @@ final class Kernel extends BaseKernel
     }
 
     /**
-     * @param array $middlewares
+     * @param array $middleware
      * @return array<MiddlewareInterface,string>
      */
-    protected function loadMiddleware(array $middlewares): array
+    protected function loadMiddleware(array $middleware): array
     {
-        return $middlewares;
+        return $middleware;
     }
 }

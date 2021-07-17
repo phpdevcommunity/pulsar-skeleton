@@ -9,7 +9,7 @@ use Pulsar\Core\Middleware\HttpExceptionHandlerMiddleware;
 # Middleware Mode PROD
 #--------------------------------------------------------------------
 return [
-    BasePath::class,
+    // BasePath::class,
     HttpExceptionHandlerMiddleware::class,
     RouterMiddleware::class,
     ControllerMiddleware::class,
