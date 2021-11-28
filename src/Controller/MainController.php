@@ -12,8 +12,13 @@ final class MainController extends Controller
 {
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $response = $this->createResponse(200);
-        $response->getBody()->write('Hello World !');
+        $templateDir = $this->get('template_directory');
+        $response = $this->createResponse();
+
+        ob_start();
+        include $templateDir . DIRECTORY_SEPARATOR . 'welcome.html.php';
+
+        $response->getBody()->write(ob_get_clean());
         return $response;
     }
 }

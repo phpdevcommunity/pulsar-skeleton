@@ -1,6 +1,32 @@
 #!/usr/bin/php
 <?php
+/**
+ * Pulsar PHP Framework
+ *
+ * An open source application development framework for PHP
+ *
+ * @package	Pulsar
+ * @author	Devcoder.xyz
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://www.devcoder.xyz
+ */
 
+use App\Kernel;
+
+if (phpversion() < '7.3') {
+    die('Your PHP version must be 7.3 or higher to run Pulsar PHP Framework. Your version: ' . phpversion());
+}
 set_time_limit(0);
-require dirname(__DIR__).'/public/index.php';
+require dirname(__DIR__).'/vendor/autoload.php';
+
+$kernel = new Kernel();
+$container = $kernel->getContainer();
+
+/**
+ * Symfony Console Example : composer require symfony/console
+ * @see config/services.php
+ */
+//$application = $container->get(\Symfony\Component\Console\Application::class);
+//$application->run();
+
 
