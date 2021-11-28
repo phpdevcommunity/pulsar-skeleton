@@ -42,9 +42,9 @@
         }
 
         a {
-            color: #3273dc;
+            color: #3b4351;
             cursor: pointer;
-            text-decoration: none;
+            text-decoration: underline;
         }
 
         header {
@@ -68,15 +68,6 @@
             max-width: 1200px;
             margin: auto;
             padding: 1rem;
-        }
-
-        .card {
-            box-shadow: 0 8px 12px 0 hsla(0, 0%, 47.8%, .2);
-            background-color: #FFF;
-            max-width: 600px;
-            margin: auto;
-            padding: 1.5rem;
-            border-radius: 5px;
         }
 
         .badge {
@@ -113,7 +104,7 @@
     <div class="container text-center">
         <h1 class="title">Pulsar <span class="small">PHP micro-framework</span></h1>
         <h2 class="sub-title">Fast and light Framework for PHP</h2>
-        <h3 class="h3">Size : 1,57MB with the dependencies (production environment )</h3>
+        <h3 class="h3">Size : 1,57MB with the dependencies (production environment)</h3>
         <p>
             Set up web applications and APIs with clean, simple code and very easy configuration.<br/>
             You choose which components you want to use, nothing is imposed!<br/>
