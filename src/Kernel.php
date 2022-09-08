@@ -4,41 +4,34 @@ declare(strict_types=1);
 
 namespace App;
 
-use DevCoder\DependencyInjection\Container;
-use DevCoder\DependencyInjection\ReflectionResolver;
-use Psr\Container\ContainerInterface;
-use Psr\Http\Server\MiddlewareInterface;
 use Pulsar\Core\BaseKernel;
+use function dirname;
 
 /**
- * @package	Pulsar
- * @author	Devcoder.xyz <dev@devcoder.xyz>
- * @license	https://opensource.org/licenses/MIT	MIT License
- * @link	https://www.devcoder.xyz
+ * @package    Pulsar
+ * @author    Devcoder.xyz <dev@devcoder.xyz>
+ * @license    https://opensource.org/licenses/MIT	MIT License
+ * @link    https://www.devcoder.xyz
  */
 final class Kernel extends BaseKernel
 {
+    protected function getCacheDir(): string
+    {
+        return getenv('APP_CACHE_DIR') ?: $this->getProjectDir() . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'cache';
+    }
+
     protected function getProjectDir(): string
     {
-        return \dirname(__DIR__);
+        return dirname(__DIR__);
     }
 
-    protected function loadContainer(
-        array $parameters,
-        array $services): ContainerInterface
+    protected function getLogDir(): string
     {
-        return new Container(
-            array_merge($parameters, $services),
-            new ReflectionResolver()
-        );
+        return getenv('APP_LOG_DIR') ?: $this->getProjectDir() . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'log';
     }
 
-    /**
-     * @param array $middleware
-     * @return array<MiddlewareInterface,string>
-     */
-    protected function loadMiddleware(array $middleware): array
+    protected function getConfigDir(): string
     {
-        return $middleware;
+        return $this->getProjectDir() . DIRECTORY_SEPARATOR . 'config';
     }
 }

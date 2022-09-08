@@ -14,21 +14,22 @@
         body {
             color: #3b4351;
             background-color: #f3f3f3;
+            font-size: 14px;
             margin: 0;
             height: 100vh;
             width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-family: Source Sans Pro,Helvetica Neue,Arial,sans-serif;
         }
 
         .title {
             font-weight: 600;
             line-height: 1.125;
-            font-size: 2.5rem;
+            font-size: 2.5em;
             margin: 0;
-            color: #03a9f4;
+            color: #077baa;
         }
 
         .small {
@@ -38,7 +39,7 @@
         .sub-title {
             font-weight: 500;
             line-height: 1.125;
-            font-size: 1.5rem;
+            font-size: 1.5em;
         }
 
         a {
@@ -50,9 +51,8 @@
         header {
             height: 60px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0.5rem;
+            padding: 0.5em;
         }
 
         main {
@@ -67,30 +67,30 @@
             width: 100%;
             max-width: 1200px;
             margin: auto;
-            padding: 1rem;
+            padding: 1em;
         }
 
         .badge {
             align-items: center;
-            background-color: #03a9f4;
+            background-color: #077baa;
             color: #fff;
-            border-radius: 5px;
             display: inline-flex;
-            font-size: 1rem;
+            font-size: 1em;
             height: 2em;
             justify-content: center;
             line-height: 1.5;
             padding-left: .75em;
             padding-right: .75em;
             white-space: nowrap;
+            margin: 0.2rem;
         }
 
         p {
             line-height: 1.5rem;
-            font-size: 1.2rem;
+            font-size: 1.2em;
         }
         .h3 {
-            font-size: 1.1rem;
+            font-size: 1.1em;
             font-weight: 400;
             text-decoration: underline;
         }
@@ -98,13 +98,17 @@
 </head>
 <body>
 <header>
-    <div class="badge">Version <?php echo  \Pulsar\Core\BaseKernel::VERSION ?></div>
+    <div class="badge">Pulsar <?php echo \Pulsar\Core\BaseKernel::VERSION ?></div>
+    <?php if (getenv('APP_ENV') === 'dev'): ?>
+        <div class="badge">PHP <?php echo phpversion() ?></div>
+        <div class="badge">ENVIRONMENT : <?php echo getenv('APP_ENV') ?></div>
+    <?php endif; ?>
 </header>
 <main>
     <div class="container text-center">
         <h1 class="title">Pulsar <span class="small">PHP micro-framework</span></h1>
         <h2 class="sub-title">Fast and light Framework for PHP</h2>
-        <h3 class="h3">Size : 1,57MB with the dependencies (production environment)</h3>
+        <h3 class="h3">Size : 6MB with the dependencies (production environment)</h3>
         <p>
             Set up web applications and APIs with clean, simple code and very easy configuration.<br/>
             You choose which components you want to use, nothing is imposed!<br/>

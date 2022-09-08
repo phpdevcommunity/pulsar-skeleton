@@ -7,36 +7,43 @@ declare(strict_types=1);
  *
  * An open source application development framework for PHP
  *
- * @package	Pulsar
- * @author	Devcoder.xyz
- * @license	https://opensource.org/licenses/MIT	MIT License
- * @link	https://www.devcoder.xyz
+ * @package    Pulsar
+ * @author    Devcoder.xyz
+ * @license    https://opensource.org/licenses/MIT	MIT License
+ * @link    https://www.devcoder.xyz
  */
 
 use DevCoder\Listener\EventDispatcher;
 use DevCoder\Listener\ListenerProvider;
 use DevCoder\Router;
-use DevCoder\RouterInterface;
-use DevCoder\RouterMiddleware;
 use Middlewares\BasePath;
-use Middlewares\Whoops;
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Pulsar\Core\App;
-use Pulsar\Core\Middleware\HttpExceptionHandlerMiddleware;
+use Pulsar\Core\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;
+use Pulsar\Core\ErrorHandler\ExceptionHandler;
+use Pulsar\Core\Middlewares\RouterMiddleware;
 
 #--------------------------------------------------------------------
 # List of Services
 #--------------------------------------------------------------------
 return [
-    Whoops::class => static function (ContainerInterface $container) {
-        return new Whoops(null, App::getResponseFactory());
+    ExceptionHandler::class => static function (ContainerInterface $container) {
+        return new ExceptionHandler(App::getResponseFactory(), [
+                'debug' => $container->get('pulsar.debug'),
+                'html_response' => new HtmlErrorRenderer(
+                    App::getResponseFactory(),
+                    $container->get('pulsar.debug'),
+                    $container->get('template.directory') . DIRECTORY_SEPARATOR . '_exception'
+                )
+            ]
+        );
     },
-    HttpExceptionHandlerMiddleware::class => static function (ContainerInterface $container) {
-        return new HttpExceptionHandlerMiddleware(App::getResponseFactory());
+    RouterMiddleware::class => static function (ContainerInterface $container) {
+        return new RouterMiddleware($container->get('router'), App::getResponseFactory());
     },
     BasePath::class => static function (ContainerInterface $container) {
-        return new BasePath($container->get('base_url'));
+        return new BasePath($container->get('app.url'));
     },
     EventDispatcherInterface::class => static function (ContainerInterface $container) {
         $provider = new ListenerProvider();
@@ -46,19 +53,39 @@ return [
         }
         return new EventDispatcher($provider);
     },
+
     /**
-     * DevCoder Router Example
-     * You can remove it and user another Router
+     * Router Example
      */
-    RouterInterface::class => static function (ContainerInterface $container) {
+    'router' => static function (ContainerInterface $container) {
+        /**
+         * DevCoder Router Example
+         * You can remove it and user another Router
+         */
         return new Router(require 'routes.php');
-    },
-    RouterMiddleware::class => static function (ContainerInterface $container) {
-        return new RouterMiddleware($container->get(RouterInterface::class), App::getResponseFactory());
+
+        /**
+         * Aura Router Example : composer require aura/router
+         */
+//        $routesArray = require 'routes.php';
+//        $routerContainer = new \Aura\Router\RouterContainer();
+//        foreach ($routesArray as $route) {
+//            $routerContainer->getMap()->addRoute($route);
+//        }
+//        return $routerContainer;
+
+        /**
+         * Symfony Routing Example : composer require symfony/routing
+         */
+//        $routesArray = require 'routes.php';
+//        $routes = new \Symfony\Component\Routing\RouteCollection();
+//        foreach ($routesArray as $name => $route) {
+//            $routes->add($name, $route);
+//        }
+//        return $routes;
+
     },
     /**
-     * -------------------------------------------
-     * -------------------------------------------
      * -------------------------------------------
      */
 
@@ -78,8 +105,5 @@ return [
 
     /**
      * -------------------------------------------
-     * -------------------------------------------
-     * -------------------------------------------
      */
-
 ];
